@@ -1,5 +1,6 @@
 package com.example.GroupFitness.controller;
-
+import com.example.GroupFitness.entity.Member;
+import com.example.GroupFitness.repository.GoalRepository;
 import com.example.GroupFitness.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,11 +12,19 @@ public class MemberController {
 
     @Autowired
     private MemberRepository mRepo;
+    @Autowired
+    private GoalRepository gRepo;
 
-    @GetMapping({"/showMembers", "/", "list"})
-    public ModelAndView showMembers() {
-        ModelAndView mav = new ModelAndView("list-members");
-        mav.addObject("members", mRepo.findAll());
+    @GetMapping({"/memberProfile", "/", "/profile"})
+    public ModelAndView showUserProfile() {
+        ModelAndView mav = new ModelAndView("member-profile");
+        Member testMember = new Member();
+        testMember.setId(1L);
+        testMember.setName("Joshua Jacoby");
+        testMember.setEmail("jjacoby@fake.com");
+        testMember.setAdmin(true);
+        mav.addObject("member", testMember);
+        mav.addObject("goals", gRepo.findAll());
         return mav;
     }
 }

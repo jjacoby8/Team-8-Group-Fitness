@@ -28,12 +28,14 @@
             <td th:text="${member.email}"></td>
             <td th:text="${member.isAdmin}"></td>
             <td>
-                <a th:href="@{/showUpdateForm(memberId=${member.id})}" class="btn btn-info">Update</a>
+                <a th:href="@{/showGoalUpdateForm(memberId=${member.id})}" class="btn btn-info">Update</a>
                 <a th:href="@{/deleteMember(memberId=${member.id})}" class="btn btn-danger ml-2">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <hr>
+    <a th:href="@{/profile}">Back to profile</a>
 </div>
 <script>
         $(document).ready(function() {

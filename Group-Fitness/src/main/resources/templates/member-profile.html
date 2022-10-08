@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Member Profile</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2>Member Profile</h2>
+  <hr/>
+  <form th:object="${member}">
+    <p class="mb-4">Member Name: <span th:text="*{name}">Name</span></p>
+    <p class="mb-4">Member Email: <span th:text="*{email}">email</span></p>
+    <input type="checkbox" name="member" th:checked="*{isAdmin}" id="adminRights" class="mb-4" onclick="return false"/>
+    <label for="adminRights">Is Admin</label>
+  </form>
+  <hr/>
+  <h3>Goals</h3>
+  <hr/>
+  <a th:href="@{/addGoalForm}" class="btn btn-primary mb-2">Add Goal</a>
+  <table class="table table-bordered table-striped" id="goal-table">
+    <thead>
+    <tr>
+      <th>Goal Name</th>
+      <th>Target</th>
+      <th>Progress</th>
+      <th>Goal Date</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="goal: ${goals}">
+      <td th:text="${goal.name}"></td>
+      <td th:text="${goal.target}"></td>
+      <td th:text="${goal.progress}"></td>
+      <td th:text="${goal.deadline}"></td>
+      <td>
+        <a th:href="@{/showUpdateForm(goalId=${goal.id})}" class="btn btn-info">Update</a>
+        <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger ml-2">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+        $(document).ready(function() {
+          $("#goal-table").DataTable ({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1]
+            }]
+          });
+        })
+    </script>
+</body>
+</html>
