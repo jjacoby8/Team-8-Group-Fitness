@@ -1,5 +1,4 @@
 package com.example.GroupFitness.controller;
-import com.example.GroupFitness.entity.Goal;
 import com.example.GroupFitness.entity.Member;
 import com.example.GroupFitness.repository.GoalRepository;
 import com.example.GroupFitness.repository.MemberRepository;
@@ -18,6 +17,14 @@ public class MemberController {
     private MemberRepository mRepo;
     @Autowired
     private GoalRepository gRepo;
+
+    @GetMapping({"/homepage", "/"})
+    public ModelAndView showHomepage(@RequestParam Long memberId) {
+        ModelAndView mav = new ModelAndView(("homepage"));
+        Member member = mRepo.findById(memberId).get();
+        mav.addObject("member", member);
+        return mav;
+    }
 
     @GetMapping({"/memberProfile", "/profile"})
     public ModelAndView showUserProfile(@RequestParam Long memberId) {
