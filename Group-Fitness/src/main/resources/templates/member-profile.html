@@ -12,12 +12,26 @@
 <div class="container">
   <h2>Member Profile</h2>
   <hr/>
-  <form th:object="${member}">
-    <p class="mb-4">Member Name: <span th:text="*{name}">Name</span></p>
-    <p class="mb-4">Member Email: <span th:text="*{email}">email</span></p>
-    <input type="checkbox" name="member" th:checked="*{isAdmin}" id="adminRights" class="mb-4" onclick="return false"/>
-    <label for="adminRights">Is Admin</label>
-  </form>
+  <table class="table table-bordered table-striped" id="member-table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Is Admin</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:object="${member}">
+      <td th:text="${member.name}"></td>
+      <td th:text="${member.email}"></td>
+      <td th:text="${member.isAdmin}"></td>
+      <td>
+        <a th:href="@{/showMemberUpdateForm(memberId=${member.id})}" class="btn btn-info">Update</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
   <hr/>
   <h3>Goals</h3>
   <hr/>
