@@ -19,16 +19,12 @@ public class MemberController {
     @Autowired
     private GoalRepository gRepo;
 
-    @GetMapping({"/memberProfile", "/", "/profile"})
-    public ModelAndView showUserProfile() {
+    @GetMapping({"/memberProfile", "/profile"})
+    public ModelAndView showUserProfile(@RequestParam Long memberId) {
         ModelAndView mav = new ModelAndView("member-profile");
-        Member testMember = new Member();
-        testMember.setId(1L);
-        testMember.setName("Joshua Jacoby");
-        testMember.setEmail("jjacoby@fake.com");
-        testMember.setAdmin(true);
-        mav.addObject("member", testMember);
-        mav.addObject("goals", gRepo.findAll());
+        Member member = mRepo.findById(memberId).get();
+        mav.addObject("member", member);
+        mav.addObject("goals", gRepo.findGoalsByMemberId(memberId));
         return mav;
     }
 

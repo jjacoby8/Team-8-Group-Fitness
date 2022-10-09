@@ -25,4 +25,6 @@ public class Goal {
     private String progress;
 
     private String deadline;
+
+    private Long memberId;
 }

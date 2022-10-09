@@ -17,9 +17,10 @@ public class GoalController {
     private GoalRepository gRepo;
 
     @GetMapping("/addGoalForm")
-    public ModelAndView addGoalForm() {
+    public ModelAndView addGoalForm(@RequestParam Long memberId) {
         ModelAndView mav = new ModelAndView("add-goal-form.html");
         Goal goal = new Goal();
+        goal.setMemberId(memberId);
         mav.addObject("goal", goal);
         return mav;
     }
@@ -27,7 +28,7 @@ public class GoalController {
     @PostMapping("/saveGoal")
     public String saveGoal(@ModelAttribute Goal goal) {
         gRepo.save(goal);
-        return "redirect:/profile";
+        return "redirect:/profile?memberId=" + goal.getMemberId();
     }
 
     @GetMapping("/showGoalUpdateForm")

@@ -9,7 +9,7 @@
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container" th:object="${member}">
   <h2>Member Profile</h2>
   <hr/>
   <table class="table table-bordered table-striped" id="member-table">
@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:object="${member}">
+    <tr>
       <td th:text="${member.name}"></td>
       <td th:text="${member.email}"></td>
       <td th:text="${member.isAdmin}"></td>
@@ -35,7 +35,7 @@
   <hr/>
   <h3>Goals</h3>
   <hr/>
-  <a th:href="@{/addGoalForm}" class="btn btn-primary mb-2">Add Goal</a>
+  <a th:href="@{/addGoalForm(memberId=${member.id})}" class="btn btn-primary mb-2">Add Goal</a>
   <table class="table table-bordered table-striped" id="goal-table">
     <thead>
     <tr>
