@@ -1,8 +1,6 @@
 package com.example.GroupFitness.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -22,5 +20,13 @@ public class Member {
     private String email;
 
     private boolean isAdmin;
+
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean value) {
+        this.isAdmin = value;
+    }
 }
 
