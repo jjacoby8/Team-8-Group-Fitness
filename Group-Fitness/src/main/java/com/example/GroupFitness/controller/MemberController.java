@@ -37,7 +37,7 @@ public class MemberController {
 
     @GetMapping("/showMemberUpdateForm")
     public ModelAndView showMemberUpdateForm(@RequestParam Long memberId) {
-        ModelAndView mav = new ModelAndView("update-member-form.html");
+        ModelAndView mav = new ModelAndView("profile-settings.html");
         Member member = mRepo.findById(memberId).get();
         mav.addObject("member", member);
         return mav;
@@ -46,6 +46,6 @@ public class MemberController {
     @PostMapping("/saveMember")
     public String saveMember(@ModelAttribute Member member) {
         mRepo.save(member);
-        return "redirect:/profile";
+        return "redirect:/profile?memberId="+member.getId();
     }
 }

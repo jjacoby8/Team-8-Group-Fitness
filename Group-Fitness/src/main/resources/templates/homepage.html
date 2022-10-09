@@ -23,7 +23,7 @@
                 <a th:href="@{/profile(memberId=${member.id})}" class="nav-link active" aria-current="page">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Settings</a>
+                <a th:href="@{/showMemberUpdateForm(memberId=${member.id})}" class="nav-link active" aria-current="page">Settings</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Logout</a>
