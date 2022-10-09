@@ -39,7 +39,7 @@
       <td th:text="${goal.progress}"></td>
       <td th:text="${goal.deadline}"></td>
       <td>
-        <a th:href="@{/showUpdateForm(goalId=${goal.id})}" class="btn btn-info">Update</a>
+        <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-info">Update</a>
         <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger ml-2">Delete</a>
       </td>
     </tr>
