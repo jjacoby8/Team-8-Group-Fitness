@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.profile
+{
+    height: 84px;
+    clip-path: square();
+}
+.navbar{
+    border-bottom: 2px solid lightgray;
+}
+ul.nav > li {
+    display: inline-block;
+    font-size: large;
+    font-weight: 600;
+    padding: 10px 30px;
+}
+div.col-sm-3 > h3 {
+    font-weight: 400;
+    padding-bottom: 15px;
+}
+div.col-sm-2 > h3 {
+    font-weight: 400;
+    padding-bottom: 15px;
+}
+div.col-sm-7 > h3 {
+    font-weight: 400;
+    padding-bottom: 15px;
+}
+.progress{
+    font-weight: 500;
+}
+p{
+    font-weight: 500;
+}
+.col-sm-7{
+    border-left: 2px solid lightgray;
+    border-right: 2px solid lightgray;
+    padding-bottom: 15px;
+}
+.m-0{
+    padding-right: 15px;
+}
+.d-flex{
+    padding-bottom: 10px;
+}
