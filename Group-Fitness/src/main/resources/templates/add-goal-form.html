@@ -7,10 +7,10 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container" th:object="${goal}">
   <h2>Add Goal</h2>
   <hr/>
-  <form th:action="@{/saveGoal}" th:object="${goal}" method="POST">
+  <form th:action="@{/saveGoal}" method="POST">
     <input type="text" th:field="*{name}" placeholder="Enter goal name" class="form-control column-4 mb-4" />
     <input type="text" th:field="*{target}" placeholder="Enter goal target" class="form-control column-4 mb-4" />
     <input type="text" th:field="*{progress}" placeholder="Enter goal progress" class="form-control column-4 mb-4" />
@@ -20,7 +20,7 @@
     <input type="hidden" th:field="*{memberId}" />
   </form>
   <hr/>
-  <a th:href="@{/profile}">Back to profile</a>
+  <a th:href="@{/profile(memberId=${goal.memberId})}">Back to profile</a>
 </div>
 </body>
 </html>

@@ -54,7 +54,7 @@
       <td th:text="${goal.deadline}"></td>
       <td>
         <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-info">Update</a>
-        <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger ml-2">Delete</a>
+        <a th:href="@{/deleteGoal(goalId=${goal.id}, memberId=${goal.memberId})}" class="btn btn-danger ml-2">Delete</a>
       </td>
     </tr>
     </tbody>

@@ -40,8 +40,8 @@ public class GoalController {
     }
 
     @GetMapping("/deleteGoal")
-    public String deleteGoal(@RequestParam Long goalId) {
+    public String deleteGoal(@RequestParam Long goalId, @RequestParam Long memberId) {
         gRepo.deleteById(goalId);
-        return "redirect:/profile";
+        return "redirect:/profile?memberId=" + memberId;
     }
 }
