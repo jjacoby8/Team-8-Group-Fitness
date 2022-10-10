@@ -73,7 +73,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="container" th:object="${admin}">
   <h1>Admin Panel</h1>
   <table class="admin-panel-table" id="member-table">
     <thead>
@@ -92,15 +92,15 @@
       <td th:text="${member.email}"></td>
       <td th:text="${member.isAdmin}"></td>
       <td>
-        <a th:href="@{/updateMember(memberId=${member.id})}" class="button">Update</a>
-        <a th:href="@{/deleteMember(memberId=${member.id})}" class="button">Delete</a>
+        <a th:href="@{/updateMember(memberId=${member.id}, adminId=${admin.id})}" class="button">Update</a>
+        <a th:href="@{/deleteMember(memberId=${member.id}, adminId=${admin.id})}" class="button">Delete</a>
       </td>
     </tr>
     </tbody>
   </table>
-  <div th:object="${member}">
-    <a th:href="@{/homepage(memberId=${member.id})}" class="button">Back</a>
-    <a th:href="@{/addMembers(memberId=${member.id})}" class="button">Add Member</a>
+  <div>
+    <a th:href="@{/homepage(memberId=${admin.id})}" class="button">Back</a>
+    <a th:href="@{/addMembers(memberId=${admin.id})}" class="button">Add Member</a>
   </div>
 </div>
 </body>
