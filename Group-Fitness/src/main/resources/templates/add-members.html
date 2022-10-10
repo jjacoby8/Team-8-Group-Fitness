@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Add Member</title>
+</head>
+<body>
+<div class="container">
+    <h2>Add Member</h2>
+    <hr/>
+    <form th:action="@{/saveMemberAdmin}" th:object="${member}" method="POST">
+        <input type="text" th:field="*{name}" placeholder="Enter name"/>
+        <input type="text" th:field="*{email}" placeholder="Enter email"/>
+        <input type="text" th:field="*{isAdmin}" placeholder="Enter isAdmin"/>
+        <button class="btn btn-primary" type="submit">Save</button>
+        <input type="hidden" th:field="*{id}" />
+    </form>
+    <hr/>
+    <a th:href="@{/admin}">Back to list</a>
+</div>
+</body>
+</html>

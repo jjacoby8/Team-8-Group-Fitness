@@ -48,4 +48,40 @@ public class MemberController {
         mRepo.save(member);
         return "redirect:/profile?memberId="+member.getId();
     }
+
+    // Michael's Additions
+
+    @GetMapping({"/admin"})
+    public ModelAndView showMembers() {
+        ModelAndView mav = new ModelAndView("admin-panel");
+        mav.addObject("members", mRepo.findAll());
+        return mav;
+    }
+    @GetMapping("/addMembers")
+    public ModelAndView addMembers() {
+        ModelAndView mav = new ModelAndView("add-members");
+        Member member = new Member();
+        mav.addObject("member", member);
+        return mav;
+    }
+
+    @PostMapping("/saveMemberAdmin")
+    public String saveMemberAdmin(@ModelAttribute Member member) {
+        mRepo.save(member);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/updateMember")
+    public ModelAndView updateMember(@RequestParam Long memberId) {
+        ModelAndView mav = new ModelAndView("add-members");
+        Member member = mRepo.findById(memberId).get();
+        mav.addObject("member", member);
+        return mav;
+    }
+
+    @GetMapping("/deleteMember")
+    public String deleteMember(@RequestParam Long memberId) {
+        mRepo.deleteById(memberId);
+        return "redirect:/admin";
+    }
 }
