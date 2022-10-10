@@ -57,9 +57,23 @@ public class MemberController {
         mav.addObject("members", mRepo.findAll());
         return mav;
     }
+    //Test
+    @GetMapping({"/admins"})
+    public ModelAndView showAdmins(@RequestParam Long memberId) {
+        ModelAndView mav = new ModelAndView("admin-panel");
+        Member member = mRepo.findById(memberId).get();
+        mav.addObject("member", member);
+        mav.addObject("members", mRepo.findAll());
+        return mav;
+    }
+    //
     @GetMapping("/addMembers")
-    public ModelAndView addMembers() {
+    public ModelAndView addMembers(@RequestParam Long memberId) {
         ModelAndView mav = new ModelAndView("add-members");
+        //
+        Member members = mRepo.findById(memberId).get();
+        mav.addObject("member", members);
+        //
         Member member = new Member();
         mav.addObject("member", member);
         return mav;
@@ -68,7 +82,7 @@ public class MemberController {
     @PostMapping("/saveMemberAdmin")
     public String saveMemberAdmin(@ModelAttribute Member member) {
         mRepo.save(member);
-        return "redirect:/admin";
+        return "redirect:/admins?memberId="+member.getId();
     }
 
     @GetMapping("/updateMember")
@@ -82,6 +96,6 @@ public class MemberController {
     @GetMapping("/deleteMember")
     public String deleteMember(@RequestParam Long memberId) {
         mRepo.deleteById(memberId);
-        return "redirect:/admin";
+        return "redirect:/admins?memberId="+memberId;
     }
 }

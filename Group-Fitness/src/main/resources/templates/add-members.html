@@ -93,7 +93,10 @@
         <button type="submit">Save</button>
         <input type="hidden" th:field="*{id}" />
     </form>
-    <a th:href="@{/admin}">Back</a>
+    <div th:object="${member}">
+        <a th:href="@{/admins(memberId=${member.id})}" class="button">Back</a>
+    </div>
+<!--    <a th:href="@{/admin}">Back</a>-->
 </div>
 </body>
 </html>

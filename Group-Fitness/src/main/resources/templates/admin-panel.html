@@ -98,7 +98,10 @@
     </tr>
     </tbody>
   </table>
-  <a th:href="@{/addMembers}" class="button">Add Member</a>
+  <div th:object="${member}">
+    <a th:href="@{/homepage(memberId=${member.id})}" class="button">Back</a>
+    <a th:href="@{/addMembers(memberId=${member.id})}" class="button">Add Member</a>
+  </div>
 </div>
 </body>
 </html>
