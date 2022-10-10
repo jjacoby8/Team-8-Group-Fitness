@@ -25,6 +25,9 @@
             <li class="nav-item">
                 <a th:href="@{/showMemberUpdateForm(memberId=${member.id})}" class="nav-link active" aria-current="page">Settings</a>
             </li>
+            <li th:if=${member.isAdmin} class="nav-item">
+                <a th:href="@{/admins(memberId=${member.id})}" class="nav-link active" aria-current="page">Admin Panel</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Logout</a>
             </li>

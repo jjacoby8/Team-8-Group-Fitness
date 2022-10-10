@@ -48,4 +48,45 @@ public class MemberController {
         mRepo.save(member);
         return "redirect:/profile?memberId="+member.getId();
     }
+
+    @GetMapping({"/admins"})
+    public ModelAndView showAdmins(@RequestParam Long memberId) {
+        ModelAndView mav = new ModelAndView("admin-panel");
+        Member admin = mRepo.findById(memberId).get();
+        mav.addObject("members", mRepo.findAll());
+        mav.addObject("admin", admin);
+        return mav;
+    }
+    //
+    @GetMapping("/addMembers")
+    public ModelAndView addMembers(@RequestParam Long memberId) {
+        ModelAndView mav = new ModelAndView("add-members");
+        Member member = new Member();
+        mav.addObject("member", member);
+        Member admin = mRepo.findById(memberId).get();
+        mav.addObject("admin", admin);
+        return mav;
+    }
+
+    @PostMapping("/saveMemberAdmin")
+    public String saveMemberAdmin(@ModelAttribute Member member, @RequestParam Long adminId) {
+        mRepo.save(member);
+        return "redirect:/admins?memberId="+adminId;
+    }
+
+    @GetMapping("/updateMember")
+    public ModelAndView updateMember(@RequestParam Long memberId, @RequestParam Long adminId) {
+        ModelAndView mav = new ModelAndView("add-members");
+        Member member = mRepo.findById(memberId).get();
+        mav.addObject("member", member);
+        Member admin = mRepo.findById(adminId).get();
+        mav.addObject("admin", admin);
+        return mav;
+    }
+
+    @GetMapping("/deleteMember")
+    public String deleteMember(@RequestParam Long memberId, @RequestParam Long adminId) {
+        mRepo.deleteById(memberId);
+        return "redirect:/admins?memberId="+adminId;
+    }
 }

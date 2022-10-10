@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+  <title>Admin Panel</title>
+  <style>
+    .container {
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    h1 {
+      font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 40px;
+      font-weight: 900;
+    }
+    table {
+      border-radius: 10px;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    th, td {
+      text-align: left;
+      padding: 10px;
+    }
+    table th:first-child{
+      border-radius:10px 0 0 0;
+    }
+
+    table th:last-child{
+      border-radius:0 10px 0 0;
+    }
+    th {
+      background: rgb(23,23,23);
+      border-radius: 10px;
+      color: white;
+      border-radius: 0;
+      position: sticky;
+      top: 0;
+      padding: 10px;
+    }
+    .button {
+      background-color: rgba(51, 51, 51, 0.05);
+      border-radius: 8px;
+      border-width: 0;
+      color: #333333;
+      cursor: pointer;
+      display: inline-block;
+      font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 10px 12px;
+      text-align: center;
+      transition: all 200ms;
+      vertical-align: baseline;
+      white-space: nowrap;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container" th:object="${admin}">
+  <h1>Admin Panel</h1>
+  <table class="admin-panel-table" id="member-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>IsAdmin</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member: ${members}">
+      <td th:text="${member.id}"></td>
+      <td th:text="${member.name}"></td>
+      <td th:text="${member.email}"></td>
+      <td th:text="${member.isAdmin}"></td>
+      <td>
+        <a th:href="@{/updateMember(memberId=${member.id}, adminId=${admin.id})}" class="button">Update</a>
+        <a th:href="@{/deleteMember(memberId=${member.id}, adminId=${admin.id})}" class="button">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div>
+    <a th:href="@{/homepage(memberId=${admin.id})}" class="button">Back</a>
+    <a th:href="@{/addMembers(memberId=${admin.id})}" class="button">Add Member</a>
+  </div>
+</div>
+</body>
+</html>
