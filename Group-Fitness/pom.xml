@@ -38,9 +38,8 @@
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.clerezza.ext</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>0.4-incubating</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

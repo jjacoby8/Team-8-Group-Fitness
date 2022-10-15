@@ -4,7 +4,6 @@ import com.example.GroupFitness.entity.AuthMember;
 import com.example.GroupFitness.entity.ConfirmationToken;
 import com.example.GroupFitness.repository.AuthMemberRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

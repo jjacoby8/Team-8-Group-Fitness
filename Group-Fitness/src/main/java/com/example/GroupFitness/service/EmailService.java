@@ -1,5 +1,6 @@
-package com.example.GroupFitness.email;
+package com.example.GroupFitness.service;
 
+import com.example.GroupFitness.email.EmailSender;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class EmailService implements EmailSender {
             helper.setText(email, true);
             helper.setTo(to);
             helper.setSubject("Confirm Your Email");
-            helper.setFrom("394groupfitnessproject@gmail.com");
+            helper.setFrom("394.group.fitness.sender@gmail.com");
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             LOGGER.error("Failed to send email", e);
