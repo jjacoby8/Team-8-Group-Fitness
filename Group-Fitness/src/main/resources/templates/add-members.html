@@ -81,20 +81,37 @@
     </style>
 </head>
 <body>
-<div class="container" th:object="${admin}">
+<div class="container">
     <h1>Add Member</h1>
-    <form th:action="@{/saveMemberAdmin(adminId=${admin.id})}" th:object="${member}" method="POST">
-        <label>Name</label>
-        <input type="text" th:field="*{name}" placeholder="Enter name"/>
-        <label>Email</label>
-        <input type="text" th:field="*{email}" placeholder="Enter email"/>
-        <label>IsAdmin</label>
-        <input type="text" th:field="*{isAdmin}" placeholder="Enter isAdmin"/>
-        <button type="submit">Save</button>
-        <input type="hidden" th:field="*{id}" />
+    <form th:action="@{/saveMemberAdmin}" th:object="${member}" method="POST">
+        <input type="text" th:field="*{firstName}" placeholder="Enter first name" class="form-control column-4 mb-4" />
+        <input type="text" th:field="*{lastName}" placeholder="Enter last name" class="form-control column-4 mb-4" />
+        <input type="text" th:field="*{email}" placeholder="Enter email" class="form-control column-4 mb-4" />
+        <input type="text" th:field="*{password}" placeholder="Enter password" class="form-control column-4 mb-4"/>
+
+        <label for="roles">Role:</label>
+        <select name="roles" id="roles" th:field="*{memberRole}" class="form-control column-4 mb-4">
+            <option th:value="USER">USER</option>
+            <option th:value="ADMIN">ADMIN</option>
+        </select>
+        <br>
+        <label for="locked">Account Locked:</label>
+        <select name="locked" id="locked" th:field="*{locked}" class="form-control column-4 mb-4">
+            <option th:value="0">false</option>
+            <option th:value="1">true</option>
+        </select>
+        <br>
+        <label for="enabled">Account Enabled:</label>
+        <select name="enabled" id="enabled" th:field="*{enabled}" class="form-control column-4 mb-4">
+            <option th:value="0">false</option>
+            <option th:value="1">true</option>
+        </select>
+        <br>
+        <button class="btn btn-primary" type="submit">Save</button>
+        <input type="hidden" th:field="*{id}"/>
     </form>
     <div>
-        <a th:href="@{/admins(memberId=${admin.id})}" class="button">Back</a>
+        <a th:href="@{/admins}" class="button">Back</a>
     </div>
 <!--    <a th:href="@{/admin}">Back</a>-->
 </div>

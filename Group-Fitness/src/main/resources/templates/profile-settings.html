@@ -13,17 +13,27 @@
   <h3>Profile</h3>
   <hr/>
   <form th:action="@{/saveMember}" th:object="${member}" method="POST">
-    <input type="text" th:field="*{name}" placeholder="Enter name" class="form-control column-4 mb-4" />
+    <input type="text" th:field="*{firstName}" placeholder="Enter first name" class="form-control column-4 mb-4" />
+    <input type="text" th:field="*{lastName}" placeholder="Enter last name" class="form-control column-4 mb-4" />
     <input type="text" th:field="*{email}" placeholder="Enter email" class="form-control column-4 mb-4" />
     <button class="btn btn-primary" type="submit">Save</button>
     <input type="hidden" th:field="*{id}"/>
-    <select hidden="hidden" th:field="*{isAdmin}" class="form-control">
+    <input type="hidden" th:field="*{password}"/>
+    <select hidden th:field="*{memberRole}" class="form-control">
+      <option th:value="USER">USER</option>
+      <option th:value="ADMIN">ADMIN</option>
+    </select>
+    <select hidden th:field="*{locked}" class="form-control">
+      <option th:value="0">false</option>
+      <option th:value="1">true</option>
+    </select>
+    <select hidden th:field="*{enabled}" class="form-control">
       <option th:value="0">false</option>
       <option th:value="1">true</option>
     </select>
   </form>
   <hr/>
-  <a th:href="@{/profile(memberId=${member.id})}" class="btn btn-primary mb-2">Back</a>
+  <a th:href="@{/profile}" class="btn btn-primary mb-2">Back</a>
 </div>
 </body>
 </html>
