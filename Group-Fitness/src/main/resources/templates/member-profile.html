@@ -23,11 +23,11 @@
     </thead>
     <tbody>
     <tr>
-      <td th:text="${member.name}"></td>
-      <td th:text="${member.email}"></td>
-      <td th:text="${member.isAdmin}"></td>
+      <td th:text="*{firstName} + ' ' + *{lastName}"></td>
+      <td th:text="*{email}"></td>
+      <td th:text="*{memberRole}"></td>
       <td>
-        <a th:href="@{/showMemberUpdateForm(memberId=${member.id})}" class="btn btn-info">Update</a>
+        <a th:href="@{/showMemberUpdateForm}" class="btn btn-info">Update</a>
       </td>
     </tr>
     </tbody>
@@ -35,7 +35,7 @@
   <hr/>
   <h3>Goals</h3>
   <hr/>
-  <a th:href="@{/addGoalForm(memberId=${member.id})}" class="btn btn-primary mb-2">Add Goal</a>
+  <a th:href="@{/addGoalForm}" class="btn btn-primary mb-2">Add Goal</a>
   <table class="table table-bordered table-striped" id="goal-table">
     <thead>
     <tr>
@@ -54,12 +54,12 @@
       <td th:text="${goal.deadline}"></td>
       <td>
         <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-info">Update</a>
-        <a th:href="@{/deleteGoal(goalId=${goal.id}, memberId=${goal.memberId})}" class="btn btn-danger ml-2">Delete</a>
+        <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger ml-2">Delete</a>
       </td>
     </tr>
     </tbody>
   </table>
-  <a th:href="@{/homepage(memberId=${member.id})}">Back to homepage</a>
+  <a th:href="@{/homepage}">Back to homepage</a>
 </div>
 <script>
         $(document).ready(function() {

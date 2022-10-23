@@ -34,6 +34,7 @@ public class AuthMember implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
     private boolean locked = false;

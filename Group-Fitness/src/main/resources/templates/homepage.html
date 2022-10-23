@@ -13,23 +13,24 @@
 <body class="bg-light">
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid" th:object="${member}">
-        <a class="navbar-brand" th:text="*{name}"><img src="pro.jpg" alt="avatar" class="rounded-circle me-2" style="width: 72px; height: 72px;object-fit: cover;"> User Name</a>
+        <a class="navbar-brand" th:text="*{firstName} + ' ' + *{lastName}"><img src="pro.jpg" alt="avatar" class="rounded-circle me-2" style="width: 72px; height: 72px;object-fit: cover;"> User Name</a>
 
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-                <a th:href="@{/profile(memberId=${member.id})}" class="nav-link active" aria-current="page">Profile</a>
+                <a th:href="@{/profile}" class="nav-link active" aria-current="page">Profile</a>
             </li>
             <li class="nav-item">
-                <a th:href="@{/showMemberUpdateForm(memberId=${member.id})}" class="nav-link active" aria-current="page">Settings</a>
+                <a th:href="@{/showMemberUpdateForm}" class="nav-link active" aria-current="page">Settings</a>
             </li>
-            <li th:if=${member.isAdmin} class="nav-item">
-                <a th:href="@{/admins(memberId=${member.id})}" class="nav-link active" aria-current="page">Admin Panel</a>
+            <!-- li th:if="${member.memberRole} == 'ADMIN'" class="nav-item" -->
+            <li class="nav-item">
+                <a th:href="@{/admins}" class="nav-link active" aria-current="page">Admin Panel</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Logout</a>
+                <a class="nav-link active" aria-current="page" href="/login">Logout</a>
             </li>
         </ul>
     </div>
