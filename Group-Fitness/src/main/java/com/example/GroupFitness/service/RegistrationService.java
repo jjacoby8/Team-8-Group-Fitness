@@ -39,7 +39,7 @@ public class RegistrationService {
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
 
-        return token;
+        return "Thank you for registering. Please check your email for the activation link.";
     }
 
     @Transactional
@@ -59,7 +59,7 @@ public class RegistrationService {
 
         confirmationTokenService.setConfirmedAt(token);
         authMemberService.enableMember(confirmationToken.getAuthMember().getEmail());
-        return "confirmed";
+        return "Thank you for confirming your email. You may now use your credentials to log in.";
     }
 
     private String buildEmail(String name, String link) {
