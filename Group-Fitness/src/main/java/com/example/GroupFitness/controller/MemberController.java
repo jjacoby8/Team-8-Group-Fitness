@@ -1,5 +1,6 @@
 package com.example.GroupFitness.controller;
 import com.example.GroupFitness.entity.AuthMember;
+import com.example.GroupFitness.registration.RegistrationRequest;
 import com.example.GroupFitness.repository.AuthMemberRepository;
 import com.example.GroupFitness.repository.ConfirmationTokenRepository;
 import com.example.GroupFitness.repository.GoalRepository;
@@ -103,5 +104,12 @@ public class MemberController {
         cRepo.deleteByMemberId(memberId);
         amRepo.deleteById(memberId);
         return "redirect:/admins";
+    }
+
+    @GetMapping("/registerUser")
+    public ModelAndView registerUser() {
+        ModelAndView mav = new ModelAndView("registration");
+        mav.addObject("registrationRequest", new RegistrationRequest("","","",""));
+        return mav;
     }
 }
