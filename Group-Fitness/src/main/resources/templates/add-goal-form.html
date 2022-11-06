@@ -11,10 +11,20 @@
   <h2>Add Goal</h2>
   <hr/>
   <form th:action="@{/saveGoal}" method="POST">
-    <input type="text" th:field="*{name}" placeholder="Enter goal name" class="form-control column-4 mb-4" />
-    <input type="text" th:field="*{target}" placeholder="Enter goal target" class="form-control column-4 mb-4" />
-    <input type="text" th:field="*{progress}" placeholder="Enter goal progress" class="form-control column-4 mb-4" />
-    <input type="text" th:field="*{deadline}" placeholder="Enter goal deadline" class="form-control column-4 mb-4" />
+    <label for="goal-type">Goal Type:</label>
+    <select name="goal-type" id="goal-type" th:field="*{goalType}" class="form-control column-4 mb-4">
+      <option th:value="BODY_WEIGHT">Body Weight</option>
+      <option th:value="MAX_REPS">Max Reps</option>
+      <option th:value="WEIGHT_MAX">Weight Max</option>
+    </select>
+    <label for="goal-name">Goal Name:</label>
+    <input type="text" th:field="*{name}" id="goal-name" placeholder="Enter goal name" class="form-control column-4 mb-4" />
+    <label for="goal-target">Goal Target:</label>
+    <input type="text" th:field="*{target}" id="goal-target" placeholder="Enter goal target" class="form-control column-4 mb-4" />
+    <label for="goal-progress">Starting Value:</label>
+    <input type="text" th:field="*{progress}" id="goal-progress" placeholder="Enter starting value" class="form-control column-4 mb-4" />
+    <label for="goal-deadline">Goal Deadline:</label>
+    <input type="text" th:field="*{deadline}" id="goal-deadline" placeholder="Enter goal deadline" class="form-control column-4 mb-4" />
     <button class="btn btn-primary" type="submit">Save</button>
     <input type="hidden" th:field="*{id}" />
     <input type="hidden" th:field="*{memberId}" />

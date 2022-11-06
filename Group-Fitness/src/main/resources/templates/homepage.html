@@ -21,7 +21,10 @@
             <ul class="dropdown-menu dropdown-menu-lg-end">
                 <li><a th:href="@{/profile}" class="dropdown-item" href="#">Profile</a></li>
                 <li><a th:href="@{/showMemberUpdateForm}" class="dropdown-item" href="#">Settings</a></li>
-                <li><a th:href="@{/admins}" class="dropdown-item" href="#">Admin Panel</a></li>
+                <li th:if="${member.memberRole.displayValue} == 'Admin'">
+                    <a th:href="@{/admins}" class="dropdown-item" href="#">Admin Panel</a>
+                </li>
+
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/login">Logout</a></li>
             </ul>

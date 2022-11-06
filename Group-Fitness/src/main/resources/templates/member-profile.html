@@ -25,9 +25,9 @@
     <tr>
       <td th:text="*{firstName} + ' ' + *{lastName}"></td>
       <td th:text="*{email}"></td>
-      <td th:text="*{memberRole}"></td>
+      <td th:text="*{memberRole.displayValue}"></td>
       <td>
-        <a th:href="@{/showMemberUpdateForm}" class="btn btn-secondary">Update</a>
+        <a th:href="@{/showMemberUpdateForm}" class="btn btn-secondary">Edit</a>
       </td>
     </tr>
     </tbody>
@@ -40,8 +40,9 @@
     <thead>
     <tr>
       <th>Goal Name</th>
+      <th>Goal Type</th>
       <th>Target</th>
-      <th>Progress</th>
+      <th>Current</th>
       <th>Goal Date</th>
       <th>Actions</th>
     </tr>
@@ -49,12 +50,14 @@
     <tbody>
     <tr th:each="goal: ${goals}">
       <td th:text="${goal.name}"></td>
-      <td th:text="${goal.target}"></td>
-      <td th:text="${goal.progress}"></td>
+      <td th:text="${goal.goalType.displayValue}">
+      <td th:text="${goal.target} + ' ' + ${goal.goalType.unit}"></td>
+      <td th:text="${goal.progress} + ' ' + ${goal.goalType.unit}"></td>
       <td th:text="${goal.deadline}"></td>
       <td>
-        <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-secondary">Update</a>
+        <a th:href="@{/addProgress(goalId=${goal.id})}" class="btn btn-primary">Add Progress</a>
         <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-secondary">Edit Goal</a>
       </td>
     </tr>
     </tbody>
