@@ -7,9 +7,45 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+
+  <style>
+    body{
+    background-color: #121212
+    }
+    .card{
+    width:100%;
+    background-color:#18181c;
+    border:none;
+    border-style: solid;
+    border-radius: 12px
+    }
+    .form-control{
+    margin-top: 10px;
+    height: 48px;
+    border: 2px solid #212529;
+    color: white;
+    background-color: #18181c;
+    border-radius: 10px
+    }
+    .form-control:focus{
+    background-color: #18181c;
+    box-shadow: none;
+    border: 2px solid #0d6efd
+    }
+    .btn{
+    border-radius: 10px
+    }
+    .bdr {
+    border-collapse: separate;
+    border: 2px solid #212529;
+    border-radius: 10px;
+    overflow: hidden;
+}
+    </style>
 </head>
 <body>
 <div class="container" th:object="${member}">
+<<<<<<< Updated upstream
   <h2>Member Profile</h2>
   <hr/>
   <table class="table table-bordered table-striped" id="member-table">
@@ -60,16 +96,127 @@
     </tbody>
   </table>
   <a th:href="@{/homepage(memberId=${member.id})}">Back to homepage</a>
+=======
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+      <div class="card-body">
+        <h4 class="card-title mb-3 text-light">Member Profile</h4>
+        <table class="table table-striped table-responsive bdr" id="member-table">
+          <thead>
+          <tr>
+            <th class="text-light">Name</th>
+            <th class="text-light">Email</th>
+            <th class="text-light">Is Admin</th>
+            <th class="text-light">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td th:text="*{firstName} + ' ' + *{lastName}" class="text-light"></td>
+            <td th:text="*{email}" class="text-light"></td>
+            <td th:text="*{memberRole}" class="text-light"></td>
+            <td>
+              <a th:href="@{/showMemberUpdateForm}" class="btn btn-secondary">Update</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+      <div class="card-body">
+        <h4 class="card-title mb-3 text-light">Goals</h4>
+        <table class="table table-responsive bdr" id="goal-table">
+          <thead>
+          <tr>
+            <th class="text-light">Goal Name</th>
+            <th class="text-light">Target</th>
+            <th class="text-light">Progress</th>
+            <th class="text-light">Goal Date</th>
+            <th class="text-light">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="goal: ${goals}" class="text-light">
+            <td th:text="${goal.name}" class="text-light"></td>
+            <td th:text="${goal.target}" class="text-light"></td>
+            <td th:text="${goal.progress}" class="text-light"></td>
+            <td th:text="${goal.deadline}" class="text-light"></td>
+            <td>
+              <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-secondary">Update</a>
+              <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger">Delete</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <a th:href="@{/homepage}" class="btn btn-primary">Back</a>
+        <a th:href="@{/addGoalForm}" class="btn btn-primary">Add Goal</a>
+      </div>
+    </div>
+  </div>
+<!--  <h2>Member Profile</h2>-->
+<!--  <hr/>-->
+<!--  <table class="table table-bordered table-striped table-responsive" id="member-table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th>Name</th>-->
+<!--      <th>Email</th>-->
+<!--      <th>Is Admin</th>-->
+<!--      <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--      <td th:text="*{firstName} + ' ' + *{lastName}"></td>-->
+<!--      <td th:text="*{email}"></td>-->
+<!--      <td th:text="*{memberRole}"></td>-->
+<!--      <td>-->
+<!--        <a th:href="@{/showMemberUpdateForm}" class="btn btn-secondary">Update</a>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--  <hr/>-->
+<!--  <h3>Goals</h3>-->
+<!--  <hr/>-->
+<!--  <a th:href="@{/addGoalForm}" class="btn btn-primary">Add Goal</a>-->
+<!--  <table class="table table-bordered table-striped table-responsive" id="goal-table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th>Goal Name</th>-->
+<!--      <th>Target</th>-->
+<!--      <th>Progress</th>-->
+<!--      <th>Goal Date</th>-->
+<!--      <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="goal: ${goals}">-->
+<!--      <td th:text="${goal.name}"></td>-->
+<!--      <td th:text="${goal.target}"></td>-->
+<!--      <td th:text="${goal.progress}"></td>-->
+<!--      <td th:text="${goal.deadline}"></td>-->
+<!--      <td>-->
+<!--        <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-secondary">Update</a>-->
+<!--        <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger">Delete</a>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--  <a th:href="@{/homepage}" class="btn btn-primary">Back</a>-->
+>>>>>>> Stashed changes
 </div>
-<script>
-        $(document).ready(function() {
-          $("#goal-table").DataTable ({
-            'aoColumnDefs': [{
-                'bSortable': false,
-                'aTargets': [-1]
-            }]
-          });
-        })
-    </script>
+<!--<script>-->
+<!--        $(document).ready(function() {-->
+<!--          $("#goal-table").DataTable ({-->
+<!--            'aoColumnDefs': [{-->
+<!--                'bSortable': false,-->
+<!--                'aTargets': [-1]-->
+<!--            }]-->
+<!--          });-->
+<!--        })-->
+<!--    </script>-->
 </body>
 </html>
