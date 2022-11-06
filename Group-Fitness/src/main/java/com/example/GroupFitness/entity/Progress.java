@@ -7,26 +7,20 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name="tbl_goals")
+@Table(name="tbl_progress")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Goal {
-
+public class Progress {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String name;
+    private String newValue;
 
-    private String target;
+    private String dateOfUpdate;
 
-    private String progress;
-
-    private String deadline;
+    private Long goalId;
 
     private Long memberId;
-
-    @Enumerated(EnumType.STRING)
-    private GoalType goalType;
 }

@@ -25,9 +25,13 @@
     <tr>
       <td th:text="*{firstName} + ' ' + *{lastName}"></td>
       <td th:text="*{email}"></td>
-      <td th:text="*{memberRole}"></td>
+      <td th:text="*{memberRole.displayValue}"></td>
       <td>
+<<<<<<< Updated upstream
         <a th:href="@{/showMemberUpdateForm}" class="btn btn-info">Update</a>
+=======
+        <a th:href="@{/showMemberUpdateForm}" class="btn btn-secondary">Edit</a>
+>>>>>>> Stashed changes
       </td>
     </tr>
     </tbody>
@@ -35,13 +39,20 @@
   <hr/>
   <h3>Goals</h3>
   <hr/>
+<<<<<<< Updated upstream
   <a th:href="@{/addGoalForm}" class="btn btn-primary mb-2">Add Goal</a>
   <table class="table table-bordered table-striped" id="goal-table">
+=======
+  <a th:href="@{/addGoalForm}" class="btn btn-primary">Add Goal</a>
+  <br><br>
+  <table class="table table-bordered table-striped table-responsive" id="goal-table">
+>>>>>>> Stashed changes
     <thead>
     <tr>
       <th>Goal Name</th>
+      <th>Goal Type</th>
       <th>Target</th>
-      <th>Progress</th>
+      <th>Current</th>
       <th>Goal Date</th>
       <th>Actions</th>
     </tr>
@@ -49,12 +60,19 @@
     <tbody>
     <tr th:each="goal: ${goals}">
       <td th:text="${goal.name}"></td>
-      <td th:text="${goal.target}"></td>
-      <td th:text="${goal.progress}"></td>
+      <td th:text="${goal.goalType.displayValue}">
+      <td th:text="${goal.target} + ' ' + ${goal.goalType.unit}"></td>
+      <td th:text="${goal.progress} + ' ' + ${goal.goalType.unit}"></td>
       <td th:text="${goal.deadline}"></td>
       <td>
+<<<<<<< Updated upstream
         <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-info">Update</a>
         <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger ml-2">Delete</a>
+=======
+        <a th:href="@{/addProgress(goalId=${goal.id})}" class="btn btn-primary">Add Progress</a>
+        <a th:href="@{/deleteGoal(goalId=${goal.id})}" class="btn btn-danger">Delete</a>
+        <a th:href="@{/showGoalUpdateForm(goalId=${goal.id})}" class="btn btn-secondary">Edit Goal</a>
+>>>>>>> Stashed changes
       </td>
     </tr>
     </tbody>

@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface GoalRepository extends JpaRepository<Goal, Long> {
-    public List<Goal> findGoalsByMemberId(Long memberId);
+    List<Goal> findGoalsByMemberId(Long memberId);
 }
