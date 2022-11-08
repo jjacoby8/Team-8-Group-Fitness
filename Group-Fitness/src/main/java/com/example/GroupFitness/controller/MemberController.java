@@ -1,92 +1,115 @@
 package com.example.GroupFitness.controller;
-import com.example.GroupFitness.entity.Member;
+import com.example.GroupFitness.entity.AuthMember;
+import com.example.GroupFitness.registration.RegistrationRequest;
+import com.example.GroupFitness.repository.AuthMemberRepository;
+import com.example.GroupFitness.repository.ConfirmationTokenRepository;
 import com.example.GroupFitness.repository.GoalRepository;
-import com.example.GroupFitness.repository.MemberRepository;
+import com.example.GroupFitness.service.AuthMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class MemberController {
-
-    @Autowired
-    private MemberRepository mRepo;
     @Autowired
     private GoalRepository gRepo;
+    @Autowired
+    private AuthMemberRepository amRepo;
+    @Autowired
+    private ConfirmationTokenRepository cRepo;
+    private final AuthMemberService authMemberService;
+
+    public MemberController(AuthMemberService authMemberService) {
+        this.authMemberService = authMemberService;
+    }
+
+    @RequestMapping(value = "/userId", method = RequestMethod.GET)
+    @ResponseBody
+    public AuthMember getCurrentUser() {
+        AuthMember authMember = (AuthMember) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return amRepo.findById(authMember.getId()).get();
+    }
 
     @GetMapping({"/homepage", "/"})
-    public ModelAndView showHomepage(@RequestParam Long memberId) {
+    public ModelAndView showHomepage() {
         ModelAndView mav = new ModelAndView(("homepage"));
-        Member member = mRepo.findById(memberId).get();
+        AuthMember member = amRepo.findById(getCurrentUser().getId()).get();
         mav.addObject("member", member);
         return mav;
     }
 
     @GetMapping({"/memberProfile", "/profile"})
-    public ModelAndView showUserProfile(@RequestParam Long memberId) {
+    public ModelAndView showUserProfile() {
         ModelAndView mav = new ModelAndView("member-profile");
-        Member member = mRepo.findById(memberId).get();
-        mav.addObject("member", member);
-        mav.addObject("goals", gRepo.findGoalsByMemberId(memberId));
+        AuthMember authMember = getCurrentUser();
+        mav.addObject("member", authMember);
+        mav.addObject("goals", gRepo.findGoalsByMemberId(authMember.getId()));
         return mav;
     }
 
     @GetMapping("/showMemberUpdateForm")
-    public ModelAndView showMemberUpdateForm(@RequestParam Long memberId) {
-        ModelAndView mav = new ModelAndView("profile-settings.html");
-        Member member = mRepo.findById(memberId).get();
-        mav.addObject("member", member);
+    public ModelAndView showMemberUpdateForm() {
+        ModelAndView mav = new ModelAndView("profile-settings");
+        AuthMember authMember = getCurrentUser();
+        mav.addObject("member", authMember);
         return mav;
     }
 
     @PostMapping("/saveMember")
-    public String saveMember(@ModelAttribute Member member) {
-        mRepo.save(member);
-        return "redirect:/profile?memberId="+member.getId();
+    public String saveMember(@ModelAttribute AuthMember member) {
+        amRepo.save(member);
+        return "redirect:/profile";
     }
 
     @GetMapping({"/admins"})
-    public ModelAndView showAdmins(@RequestParam Long memberId) {
+    public ModelAndView showAdmins() {
         ModelAndView mav = new ModelAndView("admin-panel");
-        Member admin = mRepo.findById(memberId).get();
-        mav.addObject("members", mRepo.findAll());
-        mav.addObject("admin", admin);
+        mav.addObject("members", amRepo.findAll());
         return mav;
     }
     //
     @GetMapping("/addMembers")
-    public ModelAndView addMembers(@RequestParam Long memberId) {
+    public ModelAndView addMembers() {
         ModelAndView mav = new ModelAndView("add-members");
-        Member member = new Member();
+        AuthMember member = new AuthMember();
         mav.addObject("member", member);
-        Member admin = mRepo.findById(memberId).get();
-        mav.addObject("admin", admin);
         return mav;
     }
 
     @PostMapping("/saveMemberAdmin")
-    public String saveMemberAdmin(@ModelAttribute Member member, @RequestParam Long adminId) {
-        mRepo.save(member);
-        return "redirect:/admins?memberId="+adminId;
+    public String saveMemberAdmin(@ModelAttribute AuthMember member) {
+        if (amRepo.findByEmail(member.getEmail()).isEmpty()) {
+            authMemberService.signUpMember(member);
+        }
+        else {
+            amRepo.save(member);
+        }
+
+        return "redirect:/admins";
     }
 
     @GetMapping("/updateMember")
-    public ModelAndView updateMember(@RequestParam Long memberId, @RequestParam Long adminId) {
+    public ModelAndView updateMember(@RequestParam Long memberId) {
         ModelAndView mav = new ModelAndView("add-members");
-        Member member = mRepo.findById(memberId).get();
+        AuthMember member = amRepo.findById(memberId).get();
         mav.addObject("member", member);
-        Member admin = mRepo.findById(adminId).get();
-        mav.addObject("admin", admin);
         return mav;
     }
 
     @GetMapping("/deleteMember")
-    public String deleteMember(@RequestParam Long memberId, @RequestParam Long adminId) {
-        mRepo.deleteById(memberId);
-        return "redirect:/admins?memberId="+adminId;
+    public String deleteMember(@RequestParam Long memberId) {
+        cRepo.deleteByMemberId(memberId);
+        amRepo.deleteById(memberId);
+        return "redirect:/admins";
+    }
+
+    @GetMapping("/registerUser")
+    public ModelAndView registerUser() {
+        ModelAndView mav = new ModelAndView("registration");
+        mav.addObject("registrationRequest", new RegistrationRequest("","","",""));
+        return mav;
     }
 }
