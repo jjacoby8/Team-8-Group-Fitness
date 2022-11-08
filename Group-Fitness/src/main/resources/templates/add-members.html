@@ -4,46 +4,52 @@
     <title>Add Member</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <h1>Add Member</h1>
-    <hr/>
-    <form th:action="@{/saveMemberAdmin}" th:object="${member}" method="POST">
-        <input type="text" th:field="*{firstName}" placeholder="Enter first name" class="form-control column-4 mb-4" />
-        <input type="text" th:field="*{lastName}" placeholder="Enter last name" class="form-control column-4 mb-4" />
-        <input type="text" th:field="*{email}" placeholder="Enter email" class="form-control column-4 mb-4" />
-        <input type="text" th:field="*{password}" placeholder="Enter password" class="form-control column-4 mb-4"/>
+    <div class="container mt-5 mb-5 d-flex justify-content-center">
+        <div class="card px-1 py-4">
+            <div class="card-body">
+                <h4 class="card-title mb-3 text-light">Add Member</h4>
+                <form th:action="@{/saveMemberAdmin}" th:object="${member}" method="POST">
+                    <input type="text" th:field="*{firstName}" placeholder="Enter first name" class="form-control column-4 mb-4 text-light" />
+                    <input type="text" th:field="*{lastName}" placeholder="Enter last name" class="form-control column-4 mb-4 text-light" />
+                    <input type="text" th:field="*{email}" placeholder="Enter email" class="form-control column-4 mb-4 text-light" />
+                    <input type="text" th:field="*{password}" placeholder="Enter password" class="form-control column-4 mb-4 text-light"/>
 
-        <label for="roles">Role:</label>
-        <select name="roles" id="roles" th:field="*{memberRole}" class="form-control column-4 mb-4">
-            <option th:value="USER">USER</option>
-            <option th:value="ADMIN">ADMIN</option>
-        </select>
-        <br>
-        <label for="locked">Account Locked:</label>
-        <select name="locked" id="locked" th:field="*{locked}" class="form-control column-4 mb-4">
-            <option th:value="0">false</option>
-            <option th:value="1">true</option>
-        </select>
-        <br>
-        <label for="enabled">Account Enabled:</label>
-        <select name="enabled" id="enabled" th:field="*{enabled}" class="form-control column-4 mb-4">
-            <option th:value="0">false</option>
-            <option th:value="1">true</option>
-        </select>
-        <br>
-        <button class="btn btn-primary" type="submit">Save</button>
-        <input type="hidden" th:field="*{id}"/>
-    </form>
-    <hr/>
-    <div>
-        <a th:href="@{/admins}" class="btn btn-primary">Back</a>
+                    <label for="roles" class="text-light">Role:</label>
+                    <select name="roles" id="roles" th:field="*{memberRole}" class="form-control column-4 mb-4">
+                        <option th:value="USER">USER</option>
+                        <option th:value="ADMIN">ADMIN</option>
+                    </select>
+                    <br>
+                    <label for="locked" class="text-light">Account Locked:</label>
+                    <select name="locked" id="locked" th:field="*{locked}" class="form-control column-4 mb-4">
+                        <option th:value="0">false</option>
+                        <option th:value="1">true</option>
+                    </select>
+                    <br>
+                    <label for="enabled" class="text-light">Account Enabled:</label>
+                    <select name="enabled" id="enabled" th:field="*{enabled}" class="form-control column-4 mb-4">
+                        <option th:value="0">false</option>
+                        <option th:value="1">true</option>
+                    </select>
+                    <a th:href="@{/admins}" class="btn btn-primary">Back</a>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <input type="hidden" th:field="*{id}"/>
+                </form>
+            </div>
+        </div>
     </div>
-<!--    <a th:href="@{/admin}">Back</a>-->
+    <!--    <hr/>-->
+    <!--    <div>-->
+    <!--        <a th:href="@{/admins}" class="btn btn-primary">Back</a>-->
+    <!--    </div>-->
+    <!--    <a th:href="@{/admin}">Back</a>-->
 </div>
 </body>
 </html>
