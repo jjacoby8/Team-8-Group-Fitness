@@ -26,6 +26,11 @@ public class MemberController {
         return mav;
     }
 
+    /*@GetMapping("/login")
+    public String login() {
+        return "login";
+    }*/
+
     @GetMapping({"/memberProfile", "/profile"})
     public ModelAndView showUserProfile(@RequestParam Long memberId) {
         ModelAndView mav = new ModelAndView("member-profile");

@@ -1,0 +1,34 @@
+.form-signin{
+    margin-top: 200px;
+    margin-right: 20px;
+    border-radius: 15px 15px 15px 15px;
+    background: white;
+
+
+}
+.btn1 {
+
+}
+
+a{
+    width: 150px;
+    margin-left: 80px;
+}
+
+.btn2 {
+    width: 150px;
+    margin-left: 80px;
+
+}
+.pass-reset{
+    font-size: medium;
+    margin-left: 90px;
+
+}
+.title > h1{
+    margin-left: 300px;
+    margin-top: -220px;
+    font-size: 100px;
+    font-weight: 200;
+    color: rgb(0, 0, 0);
+}
