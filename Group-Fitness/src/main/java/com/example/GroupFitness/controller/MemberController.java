@@ -8,6 +8,7 @@ import com.example.GroupFitness.service.AuthMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +32,15 @@ public class MemberController {
     public AuthMember getCurrentUser() {
         AuthMember authMember = (AuthMember) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return amRepo.findById(authMember.getId()).get();
+    }
+
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("errorMsg", "Your email and password are invalid.");
+        if (logout != null)
+            model.addAttribute("msg", "You have been successfully logged out.");
+        return "login";
     }
 
     @GetMapping({"/homepage", "/"})
