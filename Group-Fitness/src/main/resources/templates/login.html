@@ -5,28 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Please sign in</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
-    <link href="login.css" rel="stylesheet" type="text/css">
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+<!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>-->
+<!--    <link href="login.css" rel="stylesheet" type="text/css">-->
+<!--    <link rel="stylesheet" type="text/css" href="style.css">-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 </head>
+
 <body>
 <div class="container">
-    <form class="form-signin" method="POST" action="/login">
-        <p>
-            <label for="email-field" class="sr-only">Email</label>
-            <input type="text" id="email-field" name="username" class="form-control" placeholder="Enter your email" required autofocus>
-        </p>
-        <p>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        </p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <!--<a link href ="" class="pass-reset"> Forgot password? </a>-->
-        <hr>
-        <a th:href="@{/registerUser}" class="btn btn-success mb-2" type="submit">Register</a>
-    </form>
+    <div class="container mt-5 mb-5 d-flex justify-content-center">
+        <div class="card px-1 py-4">
+            <div class="card-body">
+                <h4 class="card-title mb-3 text-light">Group Fitness</h4>
+                <form class="form-signin" method="POST" action="/login">
+<!--                    <p>-->
+<!--                        <label for="email-field" class="sr-only">Email</label>-->
+                        <input type="text" id="email-field" name="username" class="form-control column-4 mb-4 text-light" placeholder="Enter your email" required autofocus>
+<!--                    </p>-->
+<!--                    <p>-->
+<!--                        <label for="password" class="sr-only">Password</label>-->
+                        <input type="password" id="password" name="password" class="form-control column-4 mb-4 text-light" placeholder="Password" required>
+<!--                    </p>-->
+                    <button class="btn btn-primary" type="submit">Sign in</button>
+                    <!--<a link href ="" class="pass-reset"> Forgot password? </a>-->
+<!--                    <hr>-->
+<!--                    <a th:href="@{/registerUser}" class="btn btn-success mb-2" type="submit">Register</a>-->
+                    <a th:href="@{/registerUser}" class="btn btn-success text-light" type="submit">Register</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="title">
-    <h1> Group Fitness</h1>
-</div>
+<!--<div class="title">-->
+<!--    <h1> Group Fitness</h1>-->
+<!--</div>-->
 </body></html>
