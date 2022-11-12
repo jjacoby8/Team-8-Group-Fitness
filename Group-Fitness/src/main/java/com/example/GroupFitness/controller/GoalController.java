@@ -1,12 +1,15 @@
 package com.example.GroupFitness.controller;
 
 import com.example.GroupFitness.entity.AuthMember;
+import com.example.GroupFitness.entity.FeedNotification;
 import com.example.GroupFitness.entity.Goal;
 import com.example.GroupFitness.entity.Progress;
 import com.example.GroupFitness.repository.AuthMemberRepository;
+import com.example.GroupFitness.repository.FeedNotificationRepository;
 import com.example.GroupFitness.repository.GoalRepository;
 import com.example.GroupFitness.repository.ProgressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,8 @@ public class GoalController {
     private GoalRepository gRepo;
     @Autowired
     private ProgressRepository pRepo;
+    @Autowired
+    private FeedNotificationRepository nRepo;
 
     public AuthMember getCurrentUser() {
         AuthMember authMember = (AuthMember) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,6 +86,30 @@ public class GoalController {
         // Update the parent goal's current progress
         Goal goal = gRepo.findById(progress.getGoalId()).get();
         goal.setProgress(progress.getNewValue());
+
+        switch(goal.getGoalType()) {
+            case MAX_REPS, WEIGHT_MAX -> {
+                if (Integer.parseInt(goal.getProgress()) >= Integer.parseInt(goal.getTarget())) goal.setCompleted(true);
+            }
+            case BODY_WEIGHT -> {
+                if (Integer.parseInt(goal.getProgress()) <= Integer.parseInt(goal.getTarget())) goal.setCompleted(true);
+            }
+        }
+
+        AuthMember progressMember = amRepo.findById(progress.getMemberId()).get();
+        FeedNotification newNotif = new FeedNotification();
+        newNotif.setUserFullName(progressMember.getFirstName() + " " + progressMember.getLastName());
+        newNotif.setGoalCurVal(progress.getNewValue());
+        newNotif.setGoalTarVal(goal.getTarget());
+        newNotif.setGoalLabel(goal.getGoalType().getDisplayValue());
+        newNotif.setGoalName(goal.getName());
+        newNotif.setDateOfUpdate(progress.getDateOfUpdate());
+        newNotif.setGoalCompleted(goal.isCompleted());
+
+        if (!nRepo.exists(Example.of(newNotif))) {
+            nRepo.save(newNotif);
+        }
+
         gRepo.save(goal);
 
         return "redirect:/profile";

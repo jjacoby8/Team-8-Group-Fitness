@@ -80,40 +80,24 @@
                 <div class="card card-home px-1 py-4">
                     <div class="card-body d-grid gap-3">
                         <h4 class="card-title mb-3 text-light">Feed</h4>
-                        <div class="card-home">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (29).jpg" class="rounded-circle" height="30" alt="" loading="lazy" />
+                        <div th:each="progress : ${allProgress}">
+                            <div class="card-home">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img (29).jpg" class="rounded-circle" height="30" alt="" loading="lazy" />
+                                        </div>
+                                        <div class="flex-grow-1 ms-3 text-light" th:text="${progress.userFullName} + ' - ' + ${progress.dateOfUpdate}">First Last - 00/00/2022</div>
                                     </div>
-                                    <div class="flex-grow-1 ms-3 text-light">John Smith - 11/8/2022</div>
-                                </div>
-                                <p class="card-text text-light">Made progress on my "Bench Press Max" goal!</p>
-                                <p class="card-text text-light">130 lbs / 150 lbs</p>
-                            </div>
-                        </div>
-                        <div class="card-home" >
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (28).jpg" class="rounded-circle" height="30" alt="" loading="lazy" />
+                                    <div th:unless="${progress.goalCompleted}">
+                                        <p class="card-text text-light" th:text="'Made progress on my ' + ${progress.goalName} + ' goal!'">Progress text</p>
+                                        <p class="card-text text-light" th:text="${progress.goalCurVal} + ' ' + ${progress.goalLabel} + ' / ' + ${progress.goalTarVal}  + ' ' + ${progress.goalLabel}">0 lbs / 0 lbs</p>
                                     </div>
-                                    <div class="flex-grow-1 ms-3 text-light">Jane Smith  - 11/7/2022</div>
-                                </div>
-                                <p class="card-text text-light">Made progress on my "Leg Press Max" goal!</p>
-                                <p class="card-text text-light">230 lbs / 250 lbs</p>
-                            </div>
-                        </div>
-                        <div class="card-home">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="30" alt="" loading="lazy" />
+                                    <div th:if="${progress.goalCompleted}">
+                                        <p class="card-text text-light" th:text="'Completed my ' + ${progress.goalName} + ' goal!'">Progress text</p>
+                                        <p class="card-text text-light" th:text="${progress.goalCurVal} + ' ' + ${progress.goalLabel} + ' / ' + ${progress.goalTarVal}  + ' ' + ${progress.goalLabel}">0 lbs / 0 lbs</p>
                                     </div>
-                                    <div class="flex-grow-1 ms-3 text-light">Michael Fox - 11/5/2022</div>
                                 </div>
-                                <p class="card-text text-light">Made progress on my "Dead Lift Max" goal!</p>
-                                <p class="card-text text-light">455 lbs / 600 lbs</p>
                             </div>
                         </div>
                     </div>

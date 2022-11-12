@@ -1,11 +1,7 @@
 package com.example.GroupFitness.controller;
-import com.example.GroupFitness.entity.AuthMember;
-import com.example.GroupFitness.entity.Friend;
+import com.example.GroupFitness.entity.*;
 import com.example.GroupFitness.registration.RegistrationRequest;
-import com.example.GroupFitness.repository.AuthMemberRepository;
-import com.example.GroupFitness.repository.ConfirmationTokenRepository;
-import com.example.GroupFitness.repository.FriendRepository;
-import com.example.GroupFitness.repository.GoalRepository;
+import com.example.GroupFitness.repository.*;
 import com.example.GroupFitness.service.AuthMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -27,6 +23,10 @@ public class MemberController {
     private AuthMemberRepository amRepo;
     @Autowired
     private FriendRepository fRepo;
+    @Autowired
+    private ProgressRepository pRepo;
+    @Autowired
+    private FeedNotificationRepository nRepo;
     @Autowired
     private ConfirmationTokenRepository cRepo;
     private final AuthMemberService authMemberService;
@@ -73,8 +73,10 @@ public class MemberController {
             }
 
         }
-        mav.addObject("friends", associatedUsers);
 
+        List<FeedNotification> notifications = nRepo.findAll();
+        mav.addObject("friends", associatedUsers);
+        mav.addObject("allProgress", notifications);
         mav.addObject("member", member);
         return mav;
     }
