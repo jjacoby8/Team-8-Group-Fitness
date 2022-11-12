@@ -1,16 +1,22 @@
 package com.example.GroupFitness.controller;
 import com.example.GroupFitness.entity.AuthMember;
+import com.example.GroupFitness.entity.Friend;
 import com.example.GroupFitness.registration.RegistrationRequest;
 import com.example.GroupFitness.repository.AuthMemberRepository;
 import com.example.GroupFitness.repository.ConfirmationTokenRepository;
+import com.example.GroupFitness.repository.FriendRepository;
 import com.example.GroupFitness.repository.GoalRepository;
 import com.example.GroupFitness.service.AuthMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -19,6 +25,8 @@ public class MemberController {
     private GoalRepository gRepo;
     @Autowired
     private AuthMemberRepository amRepo;
+    @Autowired
+    private FriendRepository fRepo;
     @Autowired
     private ConfirmationTokenRepository cRepo;
     private final AuthMemberService authMemberService;
@@ -47,6 +55,26 @@ public class MemberController {
     public ModelAndView showHomepage() {
         ModelAndView mav = new ModelAndView(("homepage"));
         AuthMember member = amRepo.findById(getCurrentUser().getId()).get();
+
+        // Get friends
+        List<Friend> friendRequests = fRepo.getFriendsOfMember(getCurrentUser().getId());
+        List<AuthMember> associatedUsers = new ArrayList<>();
+        for(Friend friend : friendRequests) {
+            if (!friend.isAcceptedRequest()) continue;
+
+            // Get the user info for the other user
+            if (getCurrentUser().getId().equals(friend.getFirstMemberId())) {
+                AuthMember curMember = amRepo.findById(friend.getSecondMemberId()).get();
+                associatedUsers.add(curMember);
+            }
+            else if (getCurrentUser().getId().equals(friend.getSecondMemberId())) {
+                AuthMember curMember = amRepo.findById(friend.getFirstMemberId()).get();
+                associatedUsers.add(curMember);
+            }
+
+        }
+        mav.addObject("friends", associatedUsers);
+
         mav.addObject("member", member);
         return mav;
     }
@@ -121,5 +149,53 @@ public class MemberController {
         ModelAndView mav = new ModelAndView("registration");
         mav.addObject("registrationRequest", new RegistrationRequest("","","",""));
         return mav;
+    }
+
+    @GetMapping("/createFriendRequest")
+    public ModelAndView createFriendRequest() {
+        Friend newFriendRequest = new Friend();
+        newFriendRequest.setFirstMemberId(getCurrentUser().getId());
+        newFriendRequest.setAcceptedRequest(false);
+        ModelAndView mav = new ModelAndView("createFriendRequest");
+        mav.addObject("friend", newFriendRequest);
+        return mav;
+    }
+
+    @PostMapping("/sendFriendRequest")
+    public String sendFriendRequest(@ModelAttribute Friend friend) {
+        if (amRepo.findById(friend.getSecondMemberId()).isPresent()
+                && !fRepo.exists(Example.of(friend))) {
+            fRepo.save(friend);
+        }
+
+        return "redirect:/homepage";
+    }
+
+    @GetMapping("/viewFriendRequests")
+    public ModelAndView viewFriendRequests() {
+        ModelAndView mav = new ModelAndView("viewFriendRequests");
+        List<Friend> friendRequests = fRepo.getIncomingFriendRequestsForMember(getCurrentUser().getId());
+        List<AuthMember> associatedUsers = new ArrayList<>();
+        for(Friend friend : friendRequests) {
+           AuthMember curMember = amRepo.findById(friend.getFirstMemberId()).get();
+           associatedUsers.add(curMember);
+        }
+        mav.addObject("potentialFriends", associatedUsers);
+        return mav;
+    }
+
+    @GetMapping("/acceptFriendRequest")
+    public String acceptFriendRequest(@RequestParam Long friendMemberId) {
+        Friend request = fRepo.getRequestByFriendId(friendMemberId, getCurrentUser().getId());
+        request.setAcceptedRequest(true);
+        fRepo.save(request);
+        return "redirect:/viewFriendRequests";
+    }
+
+    @GetMapping("/declineFriendRequest")
+    public String declineFriendRequest(@RequestParam Long friendMemberId) {
+        Friend request = fRepo.getRequestByFriendId(getCurrentUser().getId(), friendMemberId);
+        fRepo.deleteById(request.getId());
+        return "redirect:/viewFriendRequests";
     }
 }
