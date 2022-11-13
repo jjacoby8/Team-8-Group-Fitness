@@ -90,8 +90,14 @@
                                         <div class="flex-grow-1 ms-3 text-light" th:text="${progress.userFullName} + ' - ' + ${progress.dateOfUpdate}">First Last - 00/00/2022</div>
                                     </div>
                                     <div th:unless="${progress.goalCompleted}">
-                                        <p class="card-text text-light" th:text="'Made progress on my ' + ${progress.goalName} + ' goal!'">Progress text</p>
-                                        <p class="card-text text-light" th:text="${progress.goalCurVal} + ' ' + ${progress.goalLabel} + ' / ' + ${progress.goalTarVal}  + ' ' + ${progress.goalLabel}">0 lbs / 0 lbs</p>
+                                        <div th:if="${progress.goalJustCreated}">
+                                            <p class="card-text text-light" th:text="'Just made a new goal: ' + ${progress.goalName}">Progress text</p>
+                                            <p class="card-text text-light" th:text="${progress.goalCurVal} + ' ' + ${progress.goalLabel} + ' / ' + ${progress.goalTarVal}  + ' ' + ${progress.goalLabel}">0 lbs / 0 lbs</p>
+                                        </div>
+                                        <div th:unless="${progress.goalJustCreated}">
+                                            <p class="card-text text-light" th:text="'Made progress on my ' + ${progress.goalName} + ' goal!'">Progress text</p>
+                                            <p class="card-text text-light" th:text="${progress.goalCurVal} + ' ' + ${progress.goalLabel} + ' / ' + ${progress.goalTarVal}  + ' ' + ${progress.goalLabel}">0 lbs / 0 lbs</p>
+                                        </div>
                                     </div>
                                     <div th:if="${progress.goalCompleted}">
                                         <p class="card-text text-light" th:text="'Completed my ' + ${progress.goalName} + ' goal!'">Progress text</p>

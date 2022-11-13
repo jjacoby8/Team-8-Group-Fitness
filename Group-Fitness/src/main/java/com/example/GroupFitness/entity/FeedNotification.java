@@ -17,6 +17,8 @@ public class FeedNotification {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private Long memberId;
+
     private String userFullName;
 
     private String goalCurVal;
@@ -30,4 +32,6 @@ public class FeedNotification {
     private String dateOfUpdate;
 
     private boolean goalCompleted;
+
+    private boolean goalJustCreated;
 }

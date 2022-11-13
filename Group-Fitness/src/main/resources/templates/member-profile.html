@@ -101,7 +101,8 @@
           <tr>
             <th class="text-light">Name</th>
             <th class="text-light">Email</th>
-            <th class="text-light">Is Admin</th>
+            <th class="text-light">Friend ID</th>
+            <th class="text-light">User Type</th>
             <th class="text-light">Actions</th>
           </tr>
           </thead>
@@ -109,6 +110,7 @@
           <tr>
             <td th:text="*{firstName} + ' ' + *{lastName}" class="text-light"></td>
             <td th:text="*{email}" class="text-light"></td>
+            <td th:text="*{id}" class="text-light"></td>
             <td th:text="*{memberRole}" class="text-light"></td>
             <td>
               <a th:href="@{/showMemberUpdateForm}" class="btn btn-secondary">Edit</a>

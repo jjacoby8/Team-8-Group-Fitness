@@ -48,6 +48,23 @@ public class GoalController {
 
     @PostMapping("/saveGoal")
     public String saveGoal(@ModelAttribute Goal goal) {
+
+        AuthMember progressMember = amRepo.findById(goal.getMemberId()).get();
+        FeedNotification newNotif = new FeedNotification();
+        newNotif.setUserFullName(progressMember.getFirstName() + " " + progressMember.getLastName());
+        newNotif.setGoalCurVal(goal.getProgress());
+        newNotif.setGoalTarVal(goal.getTarget());
+        newNotif.setGoalLabel(goal.getGoalType().getUnit());
+        newNotif.setGoalName(goal.getName());
+        newNotif.setDateOfUpdate(DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDateTime.now()));
+        newNotif.setGoalCompleted(goal.isCompleted());
+        newNotif.setGoalJustCreated(true);
+        newNotif.setMemberId(progressMember.getId());
+
+        if (!nRepo.exists(Example.of(newNotif))) {
+            nRepo.save(newNotif);
+        }
+
         gRepo.save(goal);
         return "redirect:/profile";
     }
@@ -86,7 +103,7 @@ public class GoalController {
         // Update the parent goal's current progress
         Goal goal = gRepo.findById(progress.getGoalId()).get();
         goal.setProgress(progress.getNewValue());
-
+        goal.setJustCreated(false);
         switch(goal.getGoalType()) {
             case MAX_REPS, WEIGHT_MAX -> {
                 if (Integer.parseInt(goal.getProgress()) >= Integer.parseInt(goal.getTarget())) goal.setCompleted(true);
@@ -101,10 +118,12 @@ public class GoalController {
         newNotif.setUserFullName(progressMember.getFirstName() + " " + progressMember.getLastName());
         newNotif.setGoalCurVal(progress.getNewValue());
         newNotif.setGoalTarVal(goal.getTarget());
-        newNotif.setGoalLabel(goal.getGoalType().getDisplayValue());
+        newNotif.setGoalLabel(goal.getGoalType().getUnit());
         newNotif.setGoalName(goal.getName());
         newNotif.setDateOfUpdate(progress.getDateOfUpdate());
         newNotif.setGoalCompleted(goal.isCompleted());
+        newNotif.setGoalJustCreated(goal.isJustCreated());
+        newNotif.setMemberId(progressMember.getId());
 
         if (!nRepo.exists(Example.of(newNotif))) {
             nRepo.save(newNotif);

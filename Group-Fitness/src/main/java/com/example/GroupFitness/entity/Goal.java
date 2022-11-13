@@ -27,8 +27,10 @@ public class Goal {
 
     private Long memberId;
 
-    private boolean completed;
-
     @Enumerated(EnumType.STRING)
     private GoalType goalType;
+
+    private boolean completed;
+
+    private boolean justCreated;
 }

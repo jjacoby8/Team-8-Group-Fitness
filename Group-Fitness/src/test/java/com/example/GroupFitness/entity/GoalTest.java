@@ -14,7 +14,7 @@ public class GoalTest {
     @Test
     void testGetDeadline() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         
         assertEquals("deadline", g.getDeadline());
     }
@@ -22,7 +22,7 @@ public class GoalTest {
     @Test
     void testGetGoalType() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         
         assertEquals(GoalType.BODY_WEIGHT, g.getGoalType());
     }
@@ -30,7 +30,7 @@ public class GoalTest {
     @Test
     void testGetId() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         
         assertEquals((long) 0, g.getId());
     }
@@ -38,7 +38,7 @@ public class GoalTest {
     @Test
     void testGetMemberId() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         
         assertEquals((long) 1, g.getMemberId());
     }
@@ -46,7 +46,7 @@ public class GoalTest {
     @Test
     void testGetName() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         
         assertEquals("name", g.getName());
     }
@@ -54,7 +54,7 @@ public class GoalTest {
     @Test
     void testGetProgress() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         
         assertEquals("progress", g.getProgress());
     }
@@ -62,7 +62,7 @@ public class GoalTest {
     @Test
     void testGetTarget() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         
         assertEquals("target", g.getTarget());
     }
@@ -70,7 +70,7 @@ public class GoalTest {
     @Test
     void testSetDeadline() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         String target = "g";
 
         assertNotEquals(target, g.getDeadline());
@@ -83,7 +83,7 @@ public class GoalTest {
     @Test
     void testSetGoalType() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         GoalType target = GoalType.MAX_REPS;
 
         assertNotEquals(target, g.getGoalType());
@@ -96,7 +96,7 @@ public class GoalTest {
     @Test
     void testSetId() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         long target = 2;
 
         assertNotEquals(target, g.getId());
@@ -109,7 +109,7 @@ public class GoalTest {
     @Test
     void testSetMemberId() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         long target = 3;
 
         assertNotEquals(target, g.getMemberId());
@@ -122,7 +122,7 @@ public class GoalTest {
     @Test
     void testSetName() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         String target = "n";
 
         assertNotEquals(target, g.getName());
@@ -135,7 +135,7 @@ public class GoalTest {
     @Test
     void testSetProgress() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         String target = "p";
 
         assertNotEquals(target, g.getProgress());
@@ -148,7 +148,7 @@ public class GoalTest {
     @Test
     void testSetTarget() {
 
-        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT);
+        Goal g = new Goal((long) 0, "name", "target", "progress", "deadline", (long) 1, GoalType.BODY_WEIGHT, false, true);
         String target = "t";
 
         assertNotEquals(target, g.getTarget());

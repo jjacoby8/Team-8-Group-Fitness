@@ -58,24 +58,32 @@ public class MemberController {
 
         // Get friends
         List<Friend> friendRequests = fRepo.getFriendsOfMember(getCurrentUser().getId());
-        List<AuthMember> associatedUsers = new ArrayList<>();
+        List<AuthMember> friendUsers = new ArrayList<>();
         for(Friend friend : friendRequests) {
             if (!friend.isAcceptedRequest()) continue;
 
             // Get the user info for the other user
             if (getCurrentUser().getId().equals(friend.getFirstMemberId())) {
                 AuthMember curMember = amRepo.findById(friend.getSecondMemberId()).get();
-                associatedUsers.add(curMember);
+                friendUsers.add(curMember);
             }
             else if (getCurrentUser().getId().equals(friend.getSecondMemberId())) {
                 AuthMember curMember = amRepo.findById(friend.getFirstMemberId()).get();
-                associatedUsers.add(curMember);
+                friendUsers.add(curMember);
             }
 
         }
 
-        List<FeedNotification> notifications = nRepo.findAll();
-        mav.addObject("friends", associatedUsers);
+        List<FeedNotification> notifications = new ArrayList<>();
+
+        for (AuthMember friend : friendUsers) {
+            notifications.addAll(nRepo.findNotificationsByMemberId(friend.getId()));
+        }
+        notifications.addAll(nRepo.findNotificationsByMemberId(getCurrentUser().getId()));
+
+
+
+        mav.addObject("friends", friendUsers);
         mav.addObject("allProgress", notifications);
         mav.addObject("member", member);
         return mav;
