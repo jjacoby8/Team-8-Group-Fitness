@@ -209,4 +209,35 @@ public class MemberController {
         fRepo.deleteById(request.getId());
         return "redirect:/viewFriendRequests";
     }
+
+    @GetMapping("/removeFriend")
+    public String removeFriend(@RequestParam String friendEmail) {
+        List<Friend> friendRequests = fRepo.getFriendsOfMember(getCurrentUser().getId());
+        List<AuthMember> friendUsers = new ArrayList<>();
+        AuthMember friendMember = null;
+
+        for(Friend friend : friendRequests) {
+            if (!friend.isAcceptedRequest()) continue;
+
+            // Get the user info for the other user
+            if (getCurrentUser().getId().equals(friend.getFirstMemberId())) {
+                AuthMember curMember = amRepo.findById(friend.getSecondMemberId()).get();
+                if (curMember.getEmail().equals(friendEmail)) {
+                    friendMember = curMember;
+                }
+            }
+            else if (getCurrentUser().getId().equals(friend.getSecondMemberId())) {
+                AuthMember curMember = amRepo.findById(friend.getFirstMemberId()).get();
+                if (curMember.getEmail().equals(friendEmail)) {
+                    friendMember = curMember;
+                }
+            }
+
+        }
+
+        Long friendMemberId = friendMember.getId();
+        Friend request = fRepo.getFriendRelation(getCurrentUser().getId(), friendMemberId);
+        fRepo.deleteById(request.getId());
+        return "redirect:/homepage";
+    }
 }

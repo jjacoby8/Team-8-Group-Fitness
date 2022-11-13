@@ -25,4 +25,8 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     @Transactional
     @Query("SELECT f FROM Friend f WHERE f.firstMemberId = ?1 AND f.secondMemberId = ?2")
     Friend getRequestByFriendId(Long currentMemberId, Long friendId);
+
+    @Transactional
+    @Query("SELECT f FROM Friend f WHERE (f.firstMemberId = ?1 AND f.secondMemberId = ?2) OR (f.firstMemberId = ?2 AND f.secondMemberId = ?1)")
+    Friend getFriendRelation(Long currentMemberId, Long friendId);
 }
