@@ -10,7 +10,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @AllArgsConstructor
@@ -22,17 +31,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
         http
                 .csrf().disable()//temporary
                 .authorizeRequests()
-                    .antMatchers("/api/v*/registration/**")
+                    .antMatchers("/api/v*/registration/**").permitAll()
+                    .antMatchers("/registerUser").permitAll()
+                    .antMatchers("/*.css").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .defaultSuccessUrl("/homepage")
+                    .loginPage("/login")
                     .permitAll()
-                    .antMatchers("/registerUser")
-                    .permitAll()
-                .anyRequest()
-                .authenticated().and()
-                .formLogin().defaultSuccessUrl("/homepage").loginPage("/login").permitAll()
-                .and().logout().permitAll();
+                .successHandler((request, response, authentication) -> redirectStrategy.sendRedirect(request, response, "/homepage"))
+                    .and()
+                .logout()
+                    .permitAll();
     }
 
     @Override
@@ -48,9 +64,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+    /*
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/*.css");
         web.ignoring().antMatchers("/*.js");
     }
+    */
 }
