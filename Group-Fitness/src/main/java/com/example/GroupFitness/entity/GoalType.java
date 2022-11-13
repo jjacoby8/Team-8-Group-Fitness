@@ -8,9 +8,12 @@ public enum GoalType {
     private final String displayValue;
     private final String unit;
 
+    private final boolean progressDecreases;
+
     GoalType(String displayValue, String unit, boolean progressDecreases) {
         this.displayValue = displayValue;
         this.unit = unit;
+        this.progressDecreases = progressDecreases;
     }
 
     public String getDisplayValue() {
@@ -20,4 +23,6 @@ public enum GoalType {
     public String getUnit() {
         return unit;
     }
+
+    public boolean getProgressDecreases() { return progressDecreases; }
 }

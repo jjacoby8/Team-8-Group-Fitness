@@ -81,8 +81,9 @@ public class MemberController {
         }
         notifications.addAll(nRepo.findNotificationsByMemberId(getCurrentUser().getId()));
 
+        List<Goal> memberGoals = gRepo.findGoalsByMemberId(getCurrentUser().getId());
 
-
+        mav.addObject("goals", memberGoals);
         mav.addObject("friends", friendUsers);
         mav.addObject("allProgress", notifications);
         mav.addObject("member", member);
