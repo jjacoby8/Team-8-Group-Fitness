@@ -36,8 +36,8 @@ public class RegistrationService {
                 )
         );
 
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
-        //String link = "http://54.165.105.222/api/v1/registration/confirm?token=" + token;
+        //String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        String link = "http://54.172.79.160//api/v1/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
 
         return "Thank you for registering. Please check your email for the activation link.";
