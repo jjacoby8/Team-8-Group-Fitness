@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/emailSent").permitAll()
                     .antMatchers("/registrationSuccess").permitAll()
                     .antMatchers("/*.css").permitAll()
+                    .antMatchers("/*.js").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -66,11 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-    /*
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/*.css");
         web.ignoring().antMatchers("/*.js");
     }
-    */
 }
