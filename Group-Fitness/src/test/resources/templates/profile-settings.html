@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Edit Profile</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+      <div class="card-body">
+        <h4 class="card-title mb-3 text-light">Profile</h4>
+        <form th:action="@{/saveMember}" th:object="${member}" method="POST">
+          <input type="text" th:field="*{firstName}" placeholder="Enter first name" class="form-control column-4 mb-4 text-light" />
+          <input type="text" th:field="*{lastName}" placeholder="Enter last name" class="form-control column-4 mb-4 text-light" />
+          <input type="text" th:field="*{email}" placeholder="Enter email" class="form-control column-4 mb-4 text-light" />
+          <a th:href="@{/profile}" class="btn btn-primary">Back</a>
+          <button class="btn btn-primary" type="submit">Save</button>
+          <input type="hidden" th:field="*{id}"/>
+          <input type="hidden" th:field="*{password}"/>
+          <select hidden th:field="*{memberRole}" class="form-control">
+            <option th:value="USER">USER</option>
+            <option th:value="ADMIN">ADMIN</option>
+          </select>
+          <select hidden th:field="*{locked}" class="form-control">
+            <option th:value="0">false</option>
+            <option th:value="1">true</option>
+          </select>
+          <select hidden th:field="*{enabled}" class="form-control">
+            <option th:value="0">false</option>
+            <option th:value="1">true</option>
+          </select>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

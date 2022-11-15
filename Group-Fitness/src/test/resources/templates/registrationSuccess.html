@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Success</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+</head>
+<body>
+<div class="container mt-5 mb-5 d-flex justify-content-center">
+  <div class="card px-1 py-4">
+    <div class="card-body">
+      <h4 class="card-title mb-3 text-light">You have signed up successfully!</h4>
+      <!--      <a th:href="@{/login}" class="btn btn-primary ">Click here to Login</a>-->
+      <h4><a th:href="@{/login}" class="btn btn-primary mb-2">Click here to Login</a></h4>
+    </div>
+  </div>
+</div>
+<!--<div class="container text-center">-->
+<!--  <h3>You have signed up successfully!</h3>-->
+<!--  <h4><a th:href="@{/login}" class="btn btn-primary mb-2">Click here to Login</a></h4>-->
+<!--</div>-->
+
+</body>
+</html>

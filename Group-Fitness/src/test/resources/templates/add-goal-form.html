@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Add Goals</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container" th:object="${goal}">
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="card px-1 py-4">
+      <div class="card-body">
+        <h4 class="card-title mb-3 text-light">Add Goal</h4>
+        <form th:action="@{/saveGoal}" method="POST">
+          <label for="goal-type" class="text-light">Goal Type:</label>
+          <select name="goal-type" id="goal-type" th:field="*{goalType}" class="form-control column-4 mb-4 text-light">
+            <option th:value="BODY_WEIGHT">Body Weight</option>
+            <option th:value="MAX_REPS">Max Reps</option>
+            <option th:value="WEIGHT_MAX">Weight Max</option>
+          </select>
+<!--          <label for="goal-name">Goal Name:</label>-->
+          <input type="text" th:field="*{name}" id="goal-name" placeholder="Enter goal name" class="form-control column-4 mb-4 text-light" />
+<!--          <label for="goal-target">Goal Target:</label>-->
+          <input type="text" th:field="*{target}" id="goal-target" placeholder="Enter goal target" class="form-control column-4 mb-4 text-light" />
+<!--          <label for="goal-progress">Starting Value:</label>-->
+          <input type="text" th:field="*{progress}" id="goal-progress" placeholder="Enter starting value" class="form-control column-4 mb-4 text-light" />
+<!--          <label for="goal-deadline">Goal Deadline:</label>-->
+          <input type="text" th:field="*{deadline}" id="goal-deadline" placeholder="Enter goal deadline" class="form-control column-4 mb-4 text-light" />
+          <a th:href="@{/profile}" class="btn btn-primary">Back</a>
+          <button class="btn btn-primary" type="submit">Save</button>
+          <input type="hidden" th:field="*{id}" />
+          <input type="hidden" th:field="*{memberId}" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
